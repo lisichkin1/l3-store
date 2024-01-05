@@ -1,16 +1,19 @@
 import localforage from 'localforage';
 import { genUUID } from '../utils/helpers';
-
+interface CustomWindow extends Window {
+  userId?: string;
+}
 const ID_DB = '__wb-userId';
 
 class UserService {
   async init() {
     const id = await this.getId();
+    (window as CustomWindow).userId = id;
     console.warn('UserID: ', id);
   }
 
   async getId(): Promise<string> {
-    let id = await localforage.getItem(ID_DB) as string;
+    let id = (await localforage.getItem(ID_DB)) as string;
 
     if (!id) id = await this._setId();
 
@@ -21,6 +24,9 @@ class UserService {
     const id = genUUID();
     await localforage.setItem(ID_DB, id);
     return id;
+  }
+  getUserId(): Promise<string> {
+    return this.getId();
   }
 }
 
