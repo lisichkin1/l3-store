@@ -60,9 +60,16 @@ class ProductDetail extends Component {
     cartService.addProduct(this.product);
     this._setInCart();
   }
-  private _addToFavorite() {
+  private async _addToFavorite() {
     if (!this.product) return;
-    favoriteService.addProduct(this.product);
+    const isInFavorite = await favoriteService.isInFavorite(this.product);
+    if (isInFavorite) {
+      favoriteService.removeProduct(this.product);
+      this._setUnFavorite();
+    } else {
+      favoriteService.addProduct(this.product);
+      this._setInFavorite();
+    }
   }
 
   private _setInCart() {
@@ -70,7 +77,18 @@ class ProductDetail extends Component {
     this.view.btnBuy.disabled = true;
   }
   private _setInFavorite() {
-    this.view.btnFav.innerText = '✓ ';
+    this.view.btnFav.innerHTML = `
+    <svg class="svg-icon">
+      <use xlink:href="#heart-fill"></use>
+    </svg>
+  `;
+  }
+  private _setUnFavorite() {
+    this.view.btnFav.innerHTML = `
+    <svg class="svg-icon">
+      <use xlink:href="#heart"></use>
+    </svg>
+  `;
   }
 }
 
