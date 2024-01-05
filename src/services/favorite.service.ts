@@ -47,6 +47,10 @@ class FavoriteService {
     document.querySelectorAll('.js__favorite-counter').forEach(($el: HTMLElement) => {
       $el.innerText = String(count || '');
     });
+    //@ts-ignore
+    document.querySelectorAll('.favorite').forEach(($el: HTMLElement) => {
+      products.length ? $el.classList.remove('visible') : $el.classList.add('visible');
+    });
   }
 }
 
