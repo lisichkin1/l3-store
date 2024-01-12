@@ -1,12 +1,10 @@
 class EventService {
-  sendEvent(type: string, payload: any, timestamp?: number) {
+  sendEvent(type: string, payload: any, timestamp: number) {
     if (type === 'viewCard' && payload.log && payload.log !== '') {
       type = 'viewCardPromo';
     }
-    const requestBody: any = { type, payload };
-    if (timestamp !== undefined) {
-      requestBody['timestamp'] = timestamp;
-    }
+    const requestBody: any = { type, payload, timestamp };
+
     fetch('/api/sendEvent', {
       method: 'POST',
       headers: {

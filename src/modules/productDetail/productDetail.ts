@@ -42,6 +42,7 @@ class ProductDetail extends Component {
       .then((res) => res.json())
       .then((secretKey) => {
         this.view.secretKey.setAttribute('content', secretKey);
+        eventService.sendEvent('viewCard', { ...this.product, secretKey }, Date.now());
       });
 
     fetch('/api/getPopularProducts')
@@ -49,7 +50,6 @@ class ProductDetail extends Component {
       .then((products) => {
         this.more.update(products);
       });
-    eventService.sendEvent('viewCard', this.product);
   }
 
   private _addToCart() {
@@ -57,7 +57,7 @@ class ProductDetail extends Component {
 
     cartService.addProduct(this.product);
     this._setInCart();
-    eventService.sendEvent('addToCart', this.product);
+    eventService.sendEvent('addToCart', this.product, Date.now());
   }
 
   private _setInCart() {

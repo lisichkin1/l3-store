@@ -39,12 +39,16 @@ class Checkout extends Component {
 
     const productsIDs = this.products.map((obj) => obj.id);
     console.log(totalPrice);
-    eventService.sendEvent('purchase', {
-      orderId: genUUID(),
-      totalPrice: Math.round(totalPrice / 1000),
-      productIds: productsIDs
-    });
-    //window.location.href = '/?isSuccessOrder';
+    eventService.sendEvent(
+      'purchase',
+      {
+        orderId: genUUID(),
+        totalPrice: Math.round(totalPrice / 1000),
+        productIds: productsIDs
+      },
+      Date.now()
+    );
+    window.location.href = '/?isSuccessOrder';
   }
 }
 
