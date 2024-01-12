@@ -1,0 +1,23 @@
+.prompts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__container {
+    padding: 4px 6px 8px 6px;
+    background-color: var(--plate-color);
+    border-radius: 8px;
+  }
+  &__text {
+    font-size: 22px;
+    font-weight: 550;
+    line-height: 24px;
+  }
+  .prompt {
+    line-height: 28px;
+    text-decoration: none;
+    background: linear-gradient(93deg, #da15b8 4.93%, #8d06cc 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
